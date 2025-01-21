@@ -1,0 +1,42 @@
+{
+    "name": "csv-inspector",
+    "version": "1.0.0",
+    "description": "Validate CSV files from buffers",
+    "license": "MIT",
+    "repository": "victornunesc/csv-inspector",
+    "funding": "https://github.com/victornunesc/csv-inspector?sponsor=1",
+    "author": {
+        "name": "Victor Nunes",
+        "email": "vinunesc@proton.me",
+        "url": "https://victornunesc.com.br/"
+    },
+    "type": "module",
+    "exports": {
+        ".": {
+            "import": "./dist/index.js",
+            "types": "./dist/index.d.ts"
+        }
+    },
+    "engines": {
+        "node": ">=18"
+    },
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "scripts": {
+        "prepare": "npm run build",
+        "build": "tsc",
+        "test": "vitest"
+    },
+    "files": [
+        "dist"
+    ],
+    "keywords": [
+        "csv"
+    ],
+    "devDependencies": {
+        "@types/node": "^22.10.5",
+        "typescript": "^5.7.3",
+        "@biomejs/biome": "1.9.4",
+        "vitest": "^1.2.0"
+    }
+}
