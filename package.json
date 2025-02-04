@@ -3,8 +3,10 @@
     "version": "1.0.0",
     "description": "Validate CSV files from buffers",
     "license": "MIT",
-    "repository": "victornunesc/csv-inspector",
-    "funding": "https://github.com/victornunesc/csv-inspector?sponsor=1",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/victornunesc/csv-inspector.git"
+    },
     "author": {
         "name": "Victor Nunes",
         "email": "vinunesc@proton.me",
@@ -28,13 +30,17 @@
         "test": "vitest"
     },
     "files": [
-        "dist"
+        "dist",
+        "README.md",
+        "LICENSE"
     ],
     "keywords": [
-        "csv"
+        "csv",
+        "inspector",
+        "validate",
+        "buffer"
     ],
     "devDependencies": {
-        "@types/node": "^22.10.5",
         "typescript": "^5.7.3",
         "@biomejs/biome": "1.9.4",
         "vitest": "^1.2.0"
