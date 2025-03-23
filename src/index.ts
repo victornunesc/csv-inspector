@@ -76,11 +76,11 @@ export class CSVInspector {
 
     const delimiter = !isQuoted || lines.length > 1 ? this.#detectDelimiter(lines, [...config.delimiters]) : undefined;
 
-    if (!(delimiter || isQuoted)) {
+    if (!(delimiter || isQuoted || this.#isValidSingleColumn(lines))) {
       return null;
     }
 
-    const hasHeaders = this.#detectHeaders(lines[0], lines[1], delimiter);
+    const hasHeaders = lines.length >= 2 ? this.#detectSingleColumnHeaders(lines[0], lines[1], delimiter) : false;
 
     return {
       delimiter,
@@ -209,6 +209,30 @@ export class CSVInspector {
     const secondRowHasData = cleanSecondFields.some((field) => this.#isNumeric(field) || field.length === 0);
 
     return firstRowValid && secondRowHasData;
+  }
+
+  /**
+   * Checks if lines represent a valid single-column CSV
+   */
+  static #isValidSingleColumn(lines: string[]): boolean {
+    return lines.every((line) => {
+      const trimmed = line.trim();
+      return trimmed.length > 0 && !this.DEFAULT_CONFIG.delimiters.some((d) => trimmed.includes(d));
+    });
+  }
+
+  /**
+   * Detects headers for single-column CSV
+   */
+  static #detectSingleColumnHeaders(firstLine: string, secondLine: string, delimiter?: string): boolean {
+    if (delimiter) {
+      return this.#detectHeaders(firstLine, secondLine, delimiter);
+    }
+
+    const header = this.#cleanField(firstLine);
+    const _firstData = this.#cleanField(secondLine);
+
+    return this.#looksLikeHeader(header) && !this.#isNumeric(header);
   }
 
   /**

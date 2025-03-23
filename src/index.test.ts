@@ -61,6 +61,17 @@ it('should inspect CSV format with UTF-8 encoding', () => {
   });
 });
 
+it('should detect CSV format with 1 column', () => {
+  const buffer = Buffer.from('name\nJohn\nJane');
+  const result = CSVInspector.inspectBuffer(buffer);
+  expect(result).toEqual({
+    delimiter: undefined,
+    newline: '\n',
+    hasHeaders: true,
+    encoding: 'ASCII',
+  });
+});
+
 it('should inspect CSV format without headers', () => {
   const buffer = Buffer.from('John,30\nJane,25');
   const result = CSVInspector.inspectBuffer(buffer);
